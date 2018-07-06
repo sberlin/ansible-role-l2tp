@@ -1,15 +1,13 @@
 galaxy_info:
-  author: Shoma Nishitateno
-  description: Installs and configures L2TP/IPsec server
+  author: sberlin
+  description: Configures L2TP for use with an IPsec server
   license: "license MIT"
-  min_ansible_version: 1.8
+  min_ansible_version: 2.4
   platforms:
-    - name: EL
+    - name: Ubuntu
       versions:
-        - 7
-  galaxy_tags: []
+        - 18
+  galaxy_tags:
+    - l2tp
 
-dependencies:
-  - shomatan.epel
-  - src: shomatan.firewalld
-    when: "ansible_connection != 'docker'"
+dependencies: []
