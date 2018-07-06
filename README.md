@@ -1,46 +1,79 @@
-Role Name
+Ansible Role for LT2P
 =========
 
-[![Build Status](https://travis-ci.org/shomatan/ansible-nginx.svg?branch=master)](https://travis-ci.org/shomatan/ansible-l2tp-ipsec-server)
-
-Installs L2TP/IPsec server.
+Configures L2TP for use with an IPsec server.
 
 Requirements
 ------------
 
-None.
+## ansible.cfg
+
+This role is designed to work with merge "hash_behaviour". Make sure your
+ansible.cfg contains these settings
+
+```INI
+[defaults]
+hash_behaviour = merge
+```
 
 Role Variables
 --------------
 
-None.
+```YAML
+l2tp_packages:
+  - xl2tpd
+l2tp_config_base: /etc
+l2tp_config:
+  dns: 8.8.8.8
+  mtu: 1410
+  mru: 1410
+  name: vpn-server
+  address: 1.2.3.4
+  local_ip: 10.0.0.1
+  subnet: 10.0.0.10-10.0.0.255
+  users:
+    - name: test
+      password: 123
+      ip: 10.0.0.42
+```
 
 Dependencies
 ------------
 
-- shomatan.epel
-- shomatan.firewalld
+None.
 
 Example Playbook
 ----------------
 
-    - hosts: servers
-      roles:
-        - role: shomatan.l2tp-ipsec-server
-          # common variables
-          l2tp_ipsec_server_host: vpn.my-host.com
-          l2tp_ipsec_PSK: presharedkey
-          # only vpn-server
-          l2tp_ipsec_server_bind_interface: eno1
-          l2tp_ipsec_server_local_ip: 10.0.0.1
-          l2tp_ipsec_server_ip_range: 10.0.0.11-10.0.0.29
-          l2tp_ipsec_server_users:
-            - { username: user1, password: password1, ipaddress: 10.0.0.10 }
+```YAML
+- hosts: servers
+  roles:
+    - role: l2tp
+      vars:
+        l2tp_config:
+          name: vpn-server
+          address: "{{ ansible_default_ipv4.address }}"
+          local_ip: 10.0.0.1
+          subnet: 10.0.0.10-10.0.0.255
+          users:
+            - name: test
+              password: 123
+
+- hosts: clients
+  roles:
+    - role: l2tp
+      vars:
+        l2tp_config:
+          name: vpn-server
+          address: 1.2.3.4
+          local_ip: 10.0.0.1
+          subnet: 10.0.0.10-10.0.0.255
+          users:
+            - name: test
+              password: 123
+```
 
 License
 -------
 
 MIT
-
-Author Information
-------------------
