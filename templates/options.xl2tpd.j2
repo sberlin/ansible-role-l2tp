@@ -3,20 +3,28 @@
 ipcp-accept-local
 ipcp-accept-remote
 ms-dns {{ l2tp_config.dns }}
-auth
 idle 1800
 mtu {{ l2tp_config.mtu }}
 mru {{ l2tp_config.mru }}
-nodefaultroute
 debug
 proxyarp
 hide-password
 connect-delay 5000
 
-name {{ l2tp_config.name }}
 refuse-pap
 refuse-chap
 refuse-mschap
 require-mschap-v2
 persist
 logfile /var/log/xl2tpd-{{ l2tp_config.name }}.log
+
+{% if l2tp_config.is_server is defined and l2tp_config.is_server %}
+noauth
+{% else %}
+auth
+noipdefault
+defaultroute
+usepeerdns
+name {{ l2tp_config.user.name }}
+password {{ l2tp_config.user.password }}
+{% endif %}

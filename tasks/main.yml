@@ -5,4 +5,7 @@
     ansible_os_family == "Debian"
 
 - include: config.yml
+- include: firewall.yml
+  when:
+    l2tp_config.is_server is defined and l2tp_config.is_server
 - include: service.yml
