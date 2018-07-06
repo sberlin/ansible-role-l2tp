@@ -1,0 +1,4 @@
+---
+# Debian-specific vars file for strongswan
+
+l2tp_config_base: /etc

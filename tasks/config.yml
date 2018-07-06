@@ -1,0 +1,30 @@
+---
+# config-specific task file for l2tp
+
+- name: Create config and secrets fragment directories
+  file:
+    path: "{{ l2tp_config_base }}/{{ item }}"
+    state: directory
+    owner: root
+    group: root
+    mode: 0700
+  with_items:
+    - ppp
+    - xl2tpd
+
+- name: Configure l2tp settings
+  template:
+    src: "{{ item.filename }}.j2"
+    dest: "{{ l2tp_config_base }}/{{ item.dir }}/{{ item.filename }}"
+    owner: root
+    group: root
+    mode: 0600
+  with_items:
+    - filename: xl2tpd.conf
+      dir: xl2tpd
+    - filename: options.xl2tpd
+      dir: ppp
+    - filename: chap-secrets
+      dir: ppp
+  notify:
+    restart l2tp

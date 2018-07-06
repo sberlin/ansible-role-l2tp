@@ -1,0 +1,5 @@
+---
+# vars file for l2tp
+
+l2tp_packages:
+  - xl2tpd

@@ -1,0 +1,12 @@
+---
+# Debian-specific task file for xl2ptd
+
+- include_vars: debian.yml
+
+- name: Install l2tp
+  apt:
+    name: "{{ item }}"
+    state: present
+    update_cache: 'True'
+  with_items:
+    "{{ l2tp_packages }}"

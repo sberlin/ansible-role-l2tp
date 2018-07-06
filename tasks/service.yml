@@ -1,0 +1,8 @@
+---
+# service-specific task file for l2tp
+
+- name: Enable/Start l2tp
+  service:
+    name: xl2tpd
+    state: started
+    enabled: yes
