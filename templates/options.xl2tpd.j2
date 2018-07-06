@@ -2,22 +2,21 @@
 
 ipcp-accept-local
 ipcp-accept-remote
-ms-dns  {{ l2tp_ipsec_server_dns }}
+ms-dns {{ l2tp_config.dns }}
 auth
-#crtscts
 idle 1800
-mtu {{ l2tp_ipsec_mtu }}
-mru {{ l2tp_ipsec_mru }}
+mtu {{ l2tp_config.mtu }}
+mru {{ l2tp_config.mru }}
 nodefaultroute
 debug
-#lock
 proxyarp
+hide-password
 connect-delay 5000
 
-name xl2tpd
+name {{ l2tp_config.name }}
 refuse-pap
 refuse-chap
 refuse-mschap
 require-mschap-v2
 persist
-logfile /var/log/xl2tpd.log
+logfile /var/log/xl2tpd-{{ l2tp_config.name }}.log

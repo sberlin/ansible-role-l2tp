@@ -5,15 +5,14 @@
 ;
 
 [global]
-listen-addr = {{ l2tp_ipsec_server_host }}
+listen-addr = 0.0.0.0
 
-[lns default]
-ip range = {{ l2tp_ipsec_server_ip_range }}
-local ip = {{ l2tp_ipsec_server_local_ip }}
+[lns {{ l2tp_config.name }}]
+ip range = {{ l2tp_config.subnet }}
+local ip = {{ l2tp_config.local_ip }}
 require chap = yes
 refuse pap = yes
 require authentication = yes
-name = LinuxVPNserver
 ppp debug = yes
-pppoptfile = /etc/ppp/options.xl2tpd
+pppoptfile = {{ l2tp_config_base }}/ppp/options.xl2tpd
 length bit = yes
