@@ -42,10 +42,10 @@
   with_items:
     - src_filename: xl2tpd.conf
       dest_filename: xl2tpd.conf
-      dest: xl2tpd
+      dir: xl2tpd
     - src_filename: options.xl2tpd
       dest_filename: options.xl2tpd.client
-      dest: ppp
+      dir: ppp
   when:
     - l2tp_config.is_server is defined
     - not l2tp_config.is_server
