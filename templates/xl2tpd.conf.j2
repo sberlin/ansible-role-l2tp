@@ -6,21 +6,20 @@
 
 {% if l2tp_config.is_server is defined and l2tp_config.is_server %}
 [global]
+ipsec saref = yes
 listen-addr = 0.0.0.0
 
-[lns {{ l2tp_config.name }}]
+[lns default]
 ip range = {{ l2tp_config.subnet }}
 local ip = {{ l2tp_config.local_ip }}
 require chap = yes
 refuse pap = yes
 require authentication = yes
 pppoptfile = {{ l2tp_config_base }}/ppp/options.xl2tpd
-
 {% else %}
 [lac {{ l2tp_config.name }}]
 lns = {{ l2tp_config.address }}
 pppoptfile = {{ l2tp_config_base }}/ppp/options.xl2tpd.client
-
 {% endif %}
 ppp debug = yes
 length bit = yes
