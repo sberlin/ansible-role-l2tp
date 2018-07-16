@@ -2,7 +2,8 @@
 # defaults file for l2tp
 
 l2tp_config:
-  dns: 8.8.8.8
+  dns1: 8.8.8.8
+  dns2: 8.8.4.4
   mtu: 1410
   mru: 1410
   users: []

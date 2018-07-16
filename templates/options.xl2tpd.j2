@@ -2,7 +2,8 @@
 
 ipcp-accept-local
 ipcp-accept-remote
-ms-dns {{ l2tp_config.dns }}
+ms-dns {{ l2tp_config.dns1 }}
+ms-dns {{ l2tp_config.dns2 }}
 idle 1800
 mtu {{ l2tp_config.mtu }}
 mru {{ l2tp_config.mru }}
