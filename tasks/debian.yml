@@ -1,5 +1,5 @@
 ---
-# Debian-specific task file for xl2ptd
+# Debian-specific task file for l2tp
 
 - include_vars: debian.yml
 
