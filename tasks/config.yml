@@ -24,11 +24,26 @@
       dir: xl2tpd
     - filename: options.xl2tpd
       dir: ppp
+  when:
+    - l2tp_config.is_server is defined
+    - l2tp_config.is_server
+  notify:
+    restart l2tp
+
+- name: Configure l2tp server settings
+  template:
+    src: "{{ item.filename }}.j2"
+    dest: "{{ l2tp_config_base }}/{{ item.dir }}/{{ item.filename }}"
+    owner: root
+    group: root
+    mode: 0600
+  with_items:
     - filename: chap-secrets
       dir: ppp
   when:
     - l2tp_config.is_server is defined
     - l2tp_config.is_server
+    - not l2tp_config.use_radius
   notify:
     restart l2tp
 

@@ -21,6 +21,10 @@ logfile /var/log/xl2tpd-{{ l2tp_config.name }}.log
 ms-dns {{ l2tp_config.dns1 }}
 ms-dns {{ l2tp_config.dns2 }}
 auth
+{% if l2tp_config.use_radius is defined and l2tp_config.use_radius %}
+plugin radius.so
+plugin radattr.so
+{% endif %}
 {% else %}
 noauth
 usepeerdns
