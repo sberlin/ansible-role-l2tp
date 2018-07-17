@@ -46,9 +46,7 @@
     - src_filename: options.xl2tpd
       dest_filename: options.xl2tpd.client
       dir: ppp
-  when:
-    - l2tp_config.is_server is defined
-    - not l2tp_config.is_server
+  when: (l2tp_config.is_server is not defined or l2tp_config.is_server == false)
   notify:
     restart l2tp
 

@@ -24,6 +24,8 @@ l2tp_packages:
   - xl2tpd
 l2tp_config_base: /etc
 l2tp_config:
+  is_server: true
+  use_radius: false
   dns: 8.8.8.8
   mtu: 1410
   mru: 1410
